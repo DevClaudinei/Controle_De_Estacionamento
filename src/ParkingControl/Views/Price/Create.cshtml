@@ -1,0 +1,40 @@
+@model Application.Models.Request.Price.CreatePriceRequest
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create</h1>
+
+<h4>Price</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="InitialTerm" class="control-label"></label>
+                <input asp-for="InitialTerm" class="form-control" />
+                <span asp-validation-for="InitialTerm" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="FinalTerm" class="control-label"></label>
+                <input asp-for="FinalTerm" class="form-control" />
+                <span asp-validation-for="FinalTerm" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CurrentValue" class="control-label"></label>
+                <input asp-for="CurrentValue" class="form-control" />
+                <span asp-validation-for="CurrentValue" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-warning" />
+                <a asp-action="Index" class="btn btn-primary">Home</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

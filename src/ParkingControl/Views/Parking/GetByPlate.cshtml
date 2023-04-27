@@ -1,0 +1,65 @@
+@model Application.Models.Response.ParkingResponse
+
+@{
+    ViewData["Title"] = "GetByPlate";
+}
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Plate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ArrivalTime)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DepartureTime)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ParkingTime)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TimeToBeBilled)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Price)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.AmountToPay)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => Model.Plate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => Model.ArrivalTime)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => Model.DepartureTime)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => Model.ParkingTime)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => Model.TimeToBeBilled)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => Model.Price)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => Model.AmountToPay)
+            </td>
+            <td>
+                <a asp-action="Details" class="btn btn-primary btn-sm" asp-route-id="@Model.Id">Details</a>
+                <a asp-action="Edit" class="btn btn-warning btn-sm" asp-route-id="@Model.Id">Update</a>
+                <a asp-action="Delete" class="btn btn-danger btn-sm" asp-route-id="@Model.Id">Delete</a>
+                <a asp-action="Index" class="btn btn-info btn-sm" asp-route-id="@Model.Id">Home</a>
+            </td>
+        </tr>
+    </tbody>
+</table>
