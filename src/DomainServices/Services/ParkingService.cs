@@ -34,7 +34,7 @@ namespace DomainServices.Services
             return repository.Search(query);
         }
 
-        public Task<Parking> GetByIdId(long id)
+        public Task<Parking> GetById(long id)
         {
             var repository = RepositoryFactory.Repository<Parking>();
 
@@ -44,14 +44,14 @@ namespace DomainServices.Services
             return repository.SingleOrDefaultAsync(query);
         }
 
-        public Task<Parking> GetByPlate(string plate)
+        public async Task<Parking> GetByPlate(string plate)
         {
             var repository = RepositoryFactory.Repository<Parking>();
 
             var query = repository.SingleResultQuery()
                 .AndFilter(x => x.Plate.Equals(plate));
 
-            return repository.SingleOrDefaultAsync(query);
+            return await repository.SingleOrDefaultAsync(query);
         }
 
         public void CheckOutParking(long id, Parking parking)
@@ -72,7 +72,8 @@ namespace DomainServices.Services
         {
             var unitOfWork = UnitOfWork.Repository<Parking>();
 
-            var parkingFound = GetByIdId(id).Result;
+            var parkingFound = GetById(id).Result
+                ?? throw new NotFoundException($"Parking info for Id: {id} not found.");
 
             unitOfWork.Remove(parkingFound);
             UnitOfWork.SaveChanges();

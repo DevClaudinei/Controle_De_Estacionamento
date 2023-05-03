@@ -8,7 +8,7 @@ namespace DomainServices.Services.Interfaces
     {
         Task<long> CheckInParking(Parking parking);
         IEnumerable<Parking> GetAll();
-        Task<Parking> GetByIdId(long id);
+        Task<Parking> GetById(long id);
         Task<Parking> GetByPlate(string plate);
         void CheckOutParking(long id, Parking parking);
         void ExcludeParkingInfo(long id);
