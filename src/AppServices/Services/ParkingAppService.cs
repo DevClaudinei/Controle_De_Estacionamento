@@ -28,7 +28,7 @@ namespace AppServices.Services
         {
             var parking = _mapper.Map<Parking>(checkInRequest);
 
-            var price = _priceAppService.GetPriceByValidity(checkInRequest.ArrivalTime).Result;
+            var price = await _priceAppService.GetPriceByValidity(checkInRequest.ArrivalTime);
             VehicleCanPark(checkInRequest.Plate);
             parking.PriceId = price.Id;
             
@@ -37,10 +37,10 @@ namespace AppServices.Services
 
         private bool VehicleCanPark(string plate)
         {
-            var vehicleFound = _parkingService.GetByPlate(plate).Result;
+            var vehicleFound = _parkingService.GetByPlate(plate);
             var dateNull = new DateTime();
 
-            if (vehicleFound != null && vehicleFound.DepartureTime == dateNull)
+            if (vehicleFound.Result != null && vehicleFound.Result.DepartureTime == dateNull)
                 throw new BadRequestException($"Vehicle with plate {plate} is already parked.");
 
             return true;
@@ -52,7 +52,7 @@ namespace AppServices.Services
             var parkingFound = GetById(id);
 
             if (parkingFound.Result.DepartureTime != dateNull)
-                throw new BadRequestException("Não é Possivel Realizar operações nesse registro.");
+                throw new BadRequestException("Unable to perform operations on this record.");
 
             var price = _priceAppService.GetById(checkOutRequest.PriceId).Result;
             var parking = _mapper.Map<Parking>(checkOutRequest);
@@ -106,7 +106,7 @@ namespace AppServices.Services
 
         public async Task<CheckOutRequest> GetById(long id)
         {
-            var parkingInfo = await _parkingService.GetByIdId(id)
+            var parkingInfo = await _parkingService.GetById(id)
                 ?? throw new NotFoundException($"Parking info for Id: {id} not found.");
 
             return _mapper.Map<CheckOutRequest>(parkingInfo);
@@ -114,7 +114,7 @@ namespace AppServices.Services
 
         public async Task<ParkingResponse> Get(long id)
         {
-            var parkingInfo = await _parkingService.GetByIdId(id)
+            var parkingInfo = await _parkingService.GetById(id)
                 ?? throw new NotFoundException($"Parking info for Id: {id} not found.");
 
             return _mapper.Map<ParkingResponse>(parkingInfo);
