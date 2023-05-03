@@ -125,7 +125,7 @@ namespace ParkingControl.Controllers
 
                 return View(parkingToExclude);
             }
-            catch (BadRequestException e)
+            catch (NotFoundException e)
             {
                 return View("Error404", e);
             }

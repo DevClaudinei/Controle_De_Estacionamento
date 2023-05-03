@@ -61,13 +61,13 @@ namespace ParkingControl.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Create(CreatePriceRequest createPriceRequest)
+        public async Task<IActionResult> Create(CreatePriceRequest createPriceRequest)
         {
             if (ModelState.IsValid)
             {
                 try
                 {
-                    _priceAppService.CreatePrice(createPriceRequest);
+                    var priceId = await _priceAppService.CreatePrice(createPriceRequest);
                 }
                 catch (BadRequestException e)
                 {
@@ -108,9 +108,9 @@ namespace ParkingControl.Controllers
                 {
                     _priceAppService.UpdatePrice(id, updatePriceRequest);
                 }
-                catch (BadRequestException e)
+                catch (NotFoundException e)
                 {
-                    return View("Error500", e);
+                    return View("Error404", e);
                 }
                 return RedirectToAction(nameof(Index));
             }
@@ -141,9 +141,9 @@ namespace ParkingControl.Controllers
             {
                 _priceAppService.ExcludePrice(id);
             }
-            catch (BadRequestException e)
+            catch (NotFoundException e)
             {
-                return View("Error500", e);
+                return View("Error404", e);
             }
 
             return RedirectToAction(nameof(Index));
