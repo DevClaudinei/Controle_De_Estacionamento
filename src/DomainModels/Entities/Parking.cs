@@ -5,7 +5,7 @@ namespace DomainModels.Entities
 {
     public class Parking : IIdentifable
     {
-        protected Parking() { }
+        public Parking() { }
 
         public Parking(
             string plate,

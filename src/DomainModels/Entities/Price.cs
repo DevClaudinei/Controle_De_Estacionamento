@@ -12,7 +12,7 @@ namespace DomainModels.Entities
             DateTime initialTerm,
             DateTime finalTerm,
             double currentValue,
-            ICollection<Parking> parkings
+            IEnumerable<Parking> parkings
         )
         {
             InitialTerm = initialTerm;
@@ -25,6 +25,6 @@ namespace DomainModels.Entities
         public DateTime InitialTerm { get; set; }
         public DateTime FinalTerm { get; set; }
         public double CurrentValue { get; set; }
-        public ICollection<Parking> Parkings { get; set; }
+        public IEnumerable<Parking> Parkings { get; set; }
     }
 }
